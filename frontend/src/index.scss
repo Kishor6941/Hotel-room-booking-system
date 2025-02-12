@@ -1,0 +1,53 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+}
+.bs {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* styles.css */
+/* ... (your existing CSS) */
+
+.animated-word {
+    /* Add any specific styling for the animated word, if needed */
+    color: #007bff; /* Example: make the animated text blue */
+    font-weight: bold; /* Example: make it bold */
+    /* You can add more styles like font-size, text-shadow, etc. */
+  }
+  
+  /* Optional: Add a cursor effect during animation */
+  .animated-word::after {
+    content: '|'; /* Or a different cursor character */
+    animation: blink 0.7s infinite; /* Adjust blink speed */
+  }
+  
+  @keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }

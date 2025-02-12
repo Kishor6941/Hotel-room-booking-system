@@ -1,0 +1,20 @@
+.nav-stick{
+    position: sticky;
+    top: 0;
+    .navbar{
+        background-color: black !important;
+        
+        .nav-link{
+            color: white !important;
+            
+        }
+        .active {
+            color: #90EE90 !important;
+        }
+        .navbar-brand{
+            color: white !important;
+        }
+    }
+
+    
+}
