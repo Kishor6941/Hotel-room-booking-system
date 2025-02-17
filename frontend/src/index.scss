@@ -17,6 +17,22 @@ body {
     padding: 20px;
 }
 
+input, select, .ant-picker {
+  box-shadow: none !important;
+  margin-top: 10px !important;
+  border : 2px solid black !important;
+  width: 100% !important;
+  border-radius: 3px !important;
+  height: 35px !important;
+}
+
+.ant-picker-input > input {
+  border: 0px solid black !important;
+}
+
+.dropdown-toggle {
+  border: 0px solid black !important;
+}
 
 @keyframes fadeIn {
     0% {
