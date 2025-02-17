@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { urls } from "../../apiConstant/apiConstant";
 import "./BookingScreen.scss";
 import Loader from "../../components/Loader/Loader";
@@ -13,6 +13,7 @@ const BookingScreen = () => {
   const [room, setRoom] = useState({});
   const [loading, setLoading] = useState(false);
   let [totalAmount,setTotalAmount] = useState();
+  const navigate = useNavigate()
 
   let fromDate = searchParams.get("fromDate");
   let toDate = searchParams.get("toDate");
@@ -21,23 +22,29 @@ const BookingScreen = () => {
   let totalDays = toDate.diff(fromDate, "days") + 1;
 
   let bookRoom = async (room) => {
-    const bookingDetails = {
-      room: room.name,
-      roomid: room._id,
-      userid: JSON.parse(localStorage.getItem("userDetails")).userDetails.id,
-      fromdate: fromDate,
-      todate: toDate,
-      totalamount: totalAmount,
-      totaldays: totalDays,
-      transactionid: "123456",
+    if(localStorage.getItem("userDetails") === null) { 
+      toast.error("Please login to book a room")
+      navigate("/login")
+    } else {
+      const bookingDetails = {
+        room: room.name,
+        roomid: room._id,
+        userid: JSON.parse(localStorage.getItem("userDetails"))?.userDetails?.id,
+        fromdate: fromDate,
+        todate: toDate,
+        totalamount: totalAmount,
+        totaldays: totalDays,
+        transactionid: "123456",
+      }
+  
+      try {
+          const result = await axios.post(urls.bookroom, bookingDetails)
+          toast.success(result?.data?.message)
+      } catch (error) {
+        
+      }
     }
-
-    try {
-        const result = await axios.post(urls.bookroom, bookingDetails)
-        toast.success(result?.data?.message)
-    } catch (error) {
-      
-    }
+    
   }
 
   let getRoomById = async () => {
@@ -78,7 +85,7 @@ const BookingScreen = () => {
                 <h1>Booking Details</h1>
                 <hr />
                 <b>
-                  <p>Name : {JSON.parse(localStorage.getItem("userDetails")).userDetails?.name}</p>
+                  <p>Name : {JSON.parse(localStorage.getItem("userDetails"))?.userDetails?.name}</p>
                   <p>From Date : {searchParams.get("fromDate")}</p>
                   <p>To Date : {searchParams.get("toDate")}</p>
                   <p>Max Count : {room?.maxcount}</p>
