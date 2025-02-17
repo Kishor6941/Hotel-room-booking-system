@@ -4,16 +4,17 @@ import Room from "../../components/Room/Room";
 import Loader from "../../components/Loader/Loader";
 import Error from "../../components/Error/Error";
 import "./HomeScreen.scss";
-import { DatePicker } from 'antd';
-import 'antd/dist/reset.css'
-  const { RangePicker } = DatePicker;
-
+import { DatePicker } from "antd";
+import "antd/dist/reset.css";
+const { RangePicker } = DatePicker;
+import moment from "moment";
 const HomeScreen = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
+  const [duplicaterooms, setDuplicateRooms] = useState([]);
   let getRooms = async () => {
     setLoading(true);
     let response = await fetch(urls.getallrooms);
@@ -21,6 +22,7 @@ const HomeScreen = () => {
       setLoading(false);
       let data = await response.json();
       setRooms(data);
+      setDuplicateRooms(data);
     } catch (error) {
       setLoading(false);
       setError(error);
@@ -35,16 +37,51 @@ const HomeScreen = () => {
     return <Error />;
   }
 
-let filterByDate = (dates) => {
-  setFromDate(dates[0]?.format('DD-MM-YYYY'))
-  setToDate(dates[1]?.format('DD-MM-YYYY'))
-}
+  let filterByDate = (dates) => {
+    setFromDate(dates[0]?.format("DD-MM-YYYY"));
+    setToDate(dates[1]?.format("DD-MM-YYYY"));
+
+    let temprooms = [];
+    for (const room of duplicaterooms) {
+      let availability = false;
+      if (room?.currentbookings?.length > 0) {
+        for (const booking of room?.currentbookings) {
+         
+          if (
+            !moment(moment(dates[0])?.format("DD-MM-YYYY")).isBetween(
+              booking?.fromdate,
+              booking?.todate
+            ) &&
+            !moment(moment(dates[1])?.format("DD-MM-YYYY")).isBetween(
+              booking?.fromdate,
+              booking?.todate
+            )
+          ) {
+            if (
+              dates[0]?.format("DD-MM-YYYY") !== booking?.fromdate &&
+              dates[0]?.format("DD-MM-YYYY") !== booking?.todate &&
+              dates[1]?.format("DD-MM-YYYY") !== booking?.fromdate &&
+              dates[1]?.format("DD-MM-YYYY") !== booking?.todate
+            ) {
+              availability = true;
+            }
+          }
+        }
+        } else {
+          availability = true;
+        }
+      if (availability == true) {
+        temprooms.push(room);
+      }
+    }
+      setRooms(temprooms);
+  };
 
   return (
     <div className="container">
       <div className="row mt-5">
-        <div className="col-md-3">        
-        <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+        <div className="col-md-3">
+          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
         </div>
       </div>
       <div className="row justify-content-center mt-5 mb-5">
