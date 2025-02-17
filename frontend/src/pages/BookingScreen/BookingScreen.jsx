@@ -4,23 +4,48 @@ import { urls } from "../../apiConstant/apiConstant";
 import "./BookingScreen.scss";
 import Loader from "../../components/Loader/Loader";
 import moment from "moment";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const BookingScreen = () => {
   let { id } = useParams();
   let [searchParams] = useSearchParams();
   const [room, setRoom] = useState({});
   const [loading, setLoading] = useState(false);
+  let [totalAmount,setTotalAmount] = useState();
+
   let fromDate = searchParams.get("fromDate");
   let toDate = searchParams.get("toDate");
-  fromDate = moment(fromDate,"DD-MM-YYYY");
-  toDate = moment(toDate,"DD-MM-YYYY");
+  fromDate = moment(fromDate, "DD-MM-YYYY");
+  toDate = moment(toDate, "DD-MM-YYYY");
   let totalDays = toDate.diff(fromDate, "days") + 1;
-  let totalAmount = Number(totalDays) * Number(room?.rentperday);
+
+  let bookRoom = async (room) => {
+    const bookingDetails = {
+      room: room.name,
+      roomid: room._id,
+      userid: JSON.parse(localStorage.getItem("userDetails")).userDetails.id,
+      fromdate: fromDate,
+      todate: toDate,
+      totalamount: totalAmount,
+      totaldays: totalDays,
+      transactionid: "123456",
+    }
+
+    try {
+        const result = await axios.post(urls.bookroom, bookingDetails)
+        toast.success(result?.data?.message)
+    } catch (error) {
+      
+    }
+  }
+
   let getRoomById = async () => {
     setLoading(true);
     try {
       let response = await fetch(`${urls.getroombyid}/${id}`);
       let data = await response.json();
+      setTotalAmount(data.rentperday * totalDays);
       setRoom(data);
       setLoading(false);
     } catch (error) {
@@ -53,7 +78,7 @@ const BookingScreen = () => {
                 <h1>Booking Details</h1>
                 <hr />
                 <b>
-                  <p>Name :</p>
+                  <p>Name : {JSON.parse(localStorage.getItem("userDetails")).userDetails?.name}</p>
                   <p>From Date : {searchParams.get("fromDate")}</p>
                   <p>To Date : {searchParams.get("toDate")}</p>
                   <p>Max Count : {room?.maxcount}</p>
@@ -71,7 +96,7 @@ const BookingScreen = () => {
               </div>
 
               <div className="float-right">
-                <button className="btn btn-dark">Pay Now</button>
+                <button className="btn btn-dark" onClick={() => bookRoom(room)}>Pay Now</button>
               </div>
             </div>
           </div>

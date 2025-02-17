@@ -39,9 +39,10 @@ const Room = ({ room, fromDate,toDate }) => {
         <div className="float-right">
           <div className="d-flex" style={{ gap: "10px" }}>
             <div>
+             {(fromDate && toDate) && 
               <button className="btn btn-dark" onClick={navigateToBook}>
-                Book Now
-              </button>
+              Book Now
+            </button>}
             </div>
             <div>
               <button onClick={handleShow} className="btn btn-dark">

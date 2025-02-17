@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoutes = require('./routes/authRoutes')
 const roomsRoutes = require('./routes/roomsRoute')
+const bookingRoutes = require('./routes/bookingRoutes')
 
 dotenv.config();
 connectDB()
@@ -18,6 +19,7 @@ app.use(express.json())
 
 app.use("/api/auth",authRoutes)
 app.use("/api/rooms",roomsRoutes)
+app.use("/api/bookings",bookingRoutes)
 
 const PORT = process.env.PORT || 5000;
 

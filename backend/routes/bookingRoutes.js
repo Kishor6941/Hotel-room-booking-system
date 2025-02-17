@@ -1,0 +1,40 @@
+const express = require("express");
+const router = express.Router();
+const moment = require("moment");
+const Booking = require("../models/booking");
+const Room = require("../models/room");
+
+router.post("/bookroom", async (req, res) => {
+  try {
+    const booking = new Booking({
+      room: req.body.room,
+      roomid: req.body.roomid,
+      userid: req.body.userid,
+      fromdate: moment(req.body.fromdate).format("DD-MM-YYYY"),
+      todate: moment(req.body.todate).format("DD-MM-YYYY"),
+      totalamount: req.body.totalamount,
+      totaldays: req.body.totaldays,
+      transactionid: req.body.transactionid,
+    });
+    console.log(req.body.fromdate);
+    const newBooking = await booking.save();
+    const roomTemp = await Room.findOne({ _id: req.body.roomid });
+
+    roomTemp.currentbookings.push({
+      bookingid: newBooking._id,
+      fromdate: moment(req.body.fromdate).format("DD-MM-YYYY"),
+      todate: moment(req.body.todate).format("DD-MM-YYYY"),
+      userid : req.body.userid,
+      status : booking.status
+    });
+
+    await roomTemp.save();
+
+    res
+      .status(201)
+      .json({ message: "Room Booked successful", data: newBooking });
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+});
+module.exports = router;

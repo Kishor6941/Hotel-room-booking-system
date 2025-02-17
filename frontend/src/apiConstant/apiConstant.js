@@ -4,4 +4,5 @@ export let urls = {
     register : "http://localhost:5002/api/auth/register",
     getallrooms : "http://localhost:5002/api/rooms/getallrooms",
     getroombyid : "http://localhost:5002/api/rooms/room",
+    bookroom : "http://localhost:5002/api/bookings/bookroom",
 }
