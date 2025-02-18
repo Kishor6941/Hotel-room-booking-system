@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from './components/Navbar/Navbar'
-import { Route, Routes, useRoutes } from 'react-router-dom'
-import routes from './routes/hotelRoutes'
+import { Route, Routes } from 'react-router-dom'
 import './App.scss'
 import HomeScreen from './pages/HomeScreen/HomeScreen'
 import BookingScreen from './pages/BookingScreen/BookingScreen'
@@ -10,12 +9,10 @@ import Login from './pages/Login/Login'
 import ProfileScreen from './pages/ProfileScreen/ProfileScreen'
 
 const App = () => {
-  // let hotelRoutes = useRoutes(routes())
   return (
     <div>
       <Navbar />
       <div className='routing'>
-      {/* {hotelRoutes} */}
       <Routes>
         <Route path='/' element={<HomeScreen />} />
         <Route path='/room-book/:id' element={<BookingScreen />} />
