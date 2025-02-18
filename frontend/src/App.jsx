@@ -7,6 +7,7 @@ import BookingScreen from './pages/BookingScreen/BookingScreen'
 import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
 import ProfileScreen from './pages/ProfileScreen/ProfileScreen'
+import LandingPage from './pages/LandingPage/LandingPage'
 
 const App = () => {
   return (
@@ -14,7 +15,8 @@ const App = () => {
       <Navbar />
       <div className='routing'>
       <Routes>
-        <Route path='/' element={<HomeScreen />} />
+        <Route path='/' exact element={<LandingPage />} />
+        <Route path='/home' element={<HomeScreen />} />
         <Route path='/room-book/:id' element={<BookingScreen />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />

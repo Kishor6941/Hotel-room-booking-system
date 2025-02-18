@@ -33,11 +33,11 @@ const MyBookings = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   return (
     <div>
       <div className="row">
-        <div className="col-md-12">
+        <div className="col-md-12 p-3 pt-2">
           <h1>My Bookings</h1>
           <table className="table table-bordered">
             <thead>
@@ -74,6 +74,7 @@ const MyBookings = () => {
                       onClick={() =>
                         cancelBooking(booking?._id, booking?.roomid)
                       }
+                      disabled={booking?.status === "cancelled"}
                     >
                       Cancel booking
                     </button>

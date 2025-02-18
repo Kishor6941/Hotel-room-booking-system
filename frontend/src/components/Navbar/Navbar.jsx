@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div className="nav-stick">
       <nav className="navbar navbar-expand-lg">
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand" to="/home">
           Hotel Room Booking
         </NavLink>
 

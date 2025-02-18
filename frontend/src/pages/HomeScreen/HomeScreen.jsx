@@ -8,12 +8,14 @@ import { DatePicker } from "antd";
 import "antd/dist/reset.css";
 const { RangePicker } = DatePicker;
 import moment from "moment";
+import dayjs from "dayjs";
+
 const HomeScreen = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   const [duplicaterooms, setDuplicateRooms] = useState([]);
   const [searchkey, setSearchKey] = useState("");
   const [type, setType] = useState("all");
@@ -41,14 +43,14 @@ const HomeScreen = () => {
   }
 
   let filterByDate = (dates) => {
-    if(dates === null) {
-      setFromDate('');
-      setToDate('');
+    if (dates === null) {
+      setFromDate("");
+      setToDate("");
       setRooms(duplicaterooms);
     } else {
       setFromDate(dates[0]?.format("DD-MM-YYYY"));
       setToDate(dates[1]?.format("DD-MM-YYYY"));
-  
+
       let temprooms = [];
       for (const room of duplicaterooms) {
         let availability = false;
@@ -83,7 +85,6 @@ const HomeScreen = () => {
       }
       setRooms(temprooms);
     }
-   
   };
 
   let filterBySearch = () => {
@@ -95,19 +96,29 @@ const HomeScreen = () => {
 
   let filterByType = (e) => {
     setType(e);
-    if(e!== 'all') {
-      const temprooms = duplicaterooms.filter(room =>
-        room?.type.toLowerCase() === e.toLowerCase());
+    if (e !== "all") {
+      const temprooms = duplicaterooms.filter(
+        (room) => room?.type.toLowerCase() === e.toLowerCase()
+      );
       setRooms(temprooms);
     } else {
       setRooms(duplicaterooms);
     }
   };
+
+  const disablePastDates = (current) => {
+    return current && current < dayjs().startOf("day");
+  };
+
   return (
     <div className="container">
       <div className="row mt-5 bs">
         <div className="col-md-3">
-          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+          <RangePicker
+            format="DD-MM-YYYY"
+            onChange={filterByDate}
+            disabledDate={disablePastDates}
+          />
         </div>
         <div className="col-md-5">
           <input

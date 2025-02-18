@@ -31,7 +31,7 @@ const Login = () => {
       localStorage.setItem("userDetails", JSON.stringify(response.data));
       toast.success(response.data.message);
       reset();
-      navigate("/");
+      navigate("/home");
       window.location.reload();
     } catch (error) {
       toast.error(error.response.data.message);
