@@ -16,7 +16,6 @@ router.post("/bookroom", async (req, res) => {
       totaldays: req.body.totaldays,
       transactionid: req.body.transactionid,
     });
-    console.log(req.body.fromdate);
     const newBooking = await booking.save();
     const roomTemp = await Room.findOne({ _id: req.body.roomid });
 
@@ -59,7 +58,7 @@ router.post("/cancelbooking", async (req, res) => {
       (booking) => booking.bookingid.toString() !== req.body.bookingid
     );
     room.currentbookings = temp;
-    
+
     await room.save();
     res.status(200).json({ message: "Your Booking Cancelled Successfully" });
   } catch (error) {
