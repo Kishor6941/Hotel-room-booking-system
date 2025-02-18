@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Carousel from "react-bootstrap/Carousel";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Room = ({ room, fromDate,toDate }) => {
   const [show, setShow] = useState(false);
@@ -13,7 +14,12 @@ const Room = ({ room, fromDate,toDate }) => {
   const handleShow = () => setShow(true);
 
   let navigateToBook = () => {
-    navigate(`/room-book/${room._id}?fromDate=${fromDate}&toDate=${toDate}`);
+    if(!JSON.parse(localStorage.getItem("userDetails"))) {
+      toast.error("Please login to book a room");
+      navigate("/login");
+    } else {
+      navigate(`/room-book/${room._id}?fromDate=${fromDate}&toDate=${toDate}`);
+    }
   };
 
   return (

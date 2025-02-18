@@ -30,7 +30,9 @@ const Navbar = () => {
                 </button>
                 <ul className="dropdown-menu">
                   <li style={{ cursor: "pointer" }}>
-                    <a className="dropdown-item">Booking</a>
+                    <NavLink className="dropdown-item" to="/profile">
+                      Profile
+                    </NavLink>
                   </li>
                   <li style={{ cursor: "pointer" }}>
                     <a className="dropdown-item" onClick={logout}>

@@ -127,7 +127,7 @@ const HomeScreen = () => {
           >
             <option value="all">All</option>
             <option value="Delux">Delux</option>
-            <option value="Non-Delux">Non-Delux</option>
+            <option value="Non-Delux">Non Delux</option>
           </select>
         </div>
       </div>

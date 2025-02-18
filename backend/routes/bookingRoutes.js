@@ -37,4 +37,34 @@ router.post("/bookroom", async (req, res) => {
     return res.status(400).json({ message: error });
   }
 });
+
+router.post("/getbookingsbyuserid", async (req, res) => {
+  try {
+    const bookings = await Booking.find({ userid: req.body.userid });
+    res.status(200).json(bookings);
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+});
+
+router.post("/cancelbooking", async (req, res) => {
+  try {
+    const booking = await Booking.findOne({ _id: req.body.bookingid });
+    booking.status = "cancelled";
+    await booking.save();
+
+    const room = await Room.findOne({ _id: req.body.roomid });
+    const bookings= room.currentbookings;
+    const temp = bookings.filter(
+      (booking) => booking.bookingid.toString() !== req.body.bookingid
+    );
+    room.currentbookings = temp;
+    
+    await room.save();
+    res.status(200).json({ message: "Your Booking Cancelled Successfully" });
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+});
+
 module.exports = router;
