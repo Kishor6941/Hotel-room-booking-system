@@ -43,7 +43,7 @@ const Register = () => {
       reset();
       //   navigate("/login");
     } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error(error.response.data.msg);
     }
   };
@@ -94,7 +94,6 @@ const Register = () => {
             {errors.confirmPassword && (
               <p className="text-danger">{errors.confirmPassword.message}</p>
             )}
-
             <div className="text-center">
               <button type="submit" className="btn btn-dark">
                 Sign Up

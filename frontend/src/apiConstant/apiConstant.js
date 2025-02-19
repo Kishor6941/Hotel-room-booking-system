@@ -5,6 +5,7 @@ export let urls = {
     getallusers : "http://localhost:5002/api/auth/getallusers",
     getallrooms : "http://localhost:5002/api/rooms/getallrooms",
     getroombyid : "http://localhost:5002/api/rooms/room",
+    addroom : "http://localhost:5002/api/rooms/addroom",
     bookroom : "http://localhost:5002/api/bookings/bookroom",
     getbookingsbyuserid : "http://localhost:5002/api/bookings/getbookingsbyuserid",
     cancelbooking : "http://localhost:5002/api/bookings/cancelbooking",

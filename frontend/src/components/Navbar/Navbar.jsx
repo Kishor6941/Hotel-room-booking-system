@@ -1,21 +1,26 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Navbar.scss";
+import Logo from "../Logo/Logo";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("userDetails"));
 
   const logout = () => {
     localStorage.removeItem("userDetails");
-    // window.location.reload();
     navigate("/login");
   };
   return (
     <div className="nav-stick">
       <nav className="navbar navbar-expand-lg">
         <NavLink className="navbar-brand" to="/home">
-          Hotel Room Booking
+          <Logo />
         </NavLink>
-
+        {user?.userDetails?.isAdmin && (
+          <NavLink className="navbar-brand" to="/admin">
+            <button className="btn btn-dark">Go To Admin Panel</button>
+          </NavLink>
+        )}
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto" style={{ marginRight: "50px" }}>
             {user ? (
