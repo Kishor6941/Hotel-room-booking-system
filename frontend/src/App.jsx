@@ -8,6 +8,7 @@ import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
 import ProfileScreen from './pages/ProfileScreen/ProfileScreen'
 import LandingPage from './pages/LandingPage/LandingPage'
+import AdminNavbar from './Admin/AdminNavbar/AdminNavbar'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/profile' element={<ProfileScreen />} />
+        <Route path='/admin' element={<AdminNavbar />} />
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
       </div>

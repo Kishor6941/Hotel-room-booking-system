@@ -25,8 +25,8 @@ const Navbar = () => {
                   type="button"
                   data-bs-toggle="dropdown"
                 >
-                  <i className="fa fa-user"></i>
-                  {user?.userDetails?.name}
+                  <i className="fa fa-user" style={{ paddingRight: "6px" }}></i>
+                  <span>{user?.userDetails?.name}</span>
                 </button>
                 <ul className="dropdown-menu">
                   <li style={{ cursor: "pointer" }}>
