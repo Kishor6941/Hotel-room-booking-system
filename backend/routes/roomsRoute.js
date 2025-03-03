@@ -24,4 +24,14 @@ router.get("/room/:id", async (req, res) => {
     }
   });
 
+  router.post("/addroom", async (req, res) => {
+    try {
+      const newRoom = new Room(req.body);
+      await newRoom.save();
+      res.status(201).json({ message: "New Room Added", data: newRoom });
+    } catch (error) {
+      res.status(400).json({ message: error }); 
+    }
+  });
+
 module.exports = router

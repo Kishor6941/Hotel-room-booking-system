@@ -1,5 +1,5 @@
 import React from "react";
-
+import avatar from "../../../public/Avatar/avatar.jpg";
 const MyProfile = () => {
   const user = JSON.parse(localStorage.getItem("userDetails"));
 
@@ -7,15 +7,11 @@ const MyProfile = () => {
     <div>
       <div className="container mt-2">
         <div className="row d-flex justify-content-center">
-          <div className="col-md-7">
-          <h1>My Profile</h1>
+          <div className="col-md-3">
+            <h1 className="text-center">My Profile</h1>
             <div className="card p-3 py-4">
               <div className="text-center">
-                <img
-                  src="https://i.imgur.com/bDLhJiP.jpg"
-                  width="100"
-                  className="rounded-circle"
-                />
+                <img src={avatar} width="100" className="rounded-circle" />
               </div>
 
               <div className="text-center mt-3">

@@ -25,7 +25,7 @@ const Room = ({ room, fromDate,toDate }) => {
   return (
     <div className="row room-list bs">
       <div className="col-md-4">
-        <img src={room.imagesUrls[0]} alt="" className="smallimg" />
+        <img src={room?.imagesUrls?.length && room?.imagesUrls[0]} alt="image1" className="smallimg" />
       </div>
       <div className="col-md-7 text-left">
         <h1>{room.name}</h1>
@@ -65,7 +65,7 @@ const Room = ({ room, fromDate,toDate }) => {
         </Modal.Header>
         <Modal.Body>
           <Carousel>
-            {room.imagesUrls.map((url, index) => {
+            {room?.imagesUrls?.map((url, index) => {
               return (
                 <Carousel.Item key={index}>
                   <img className="d-block w-100 bigimg" src={url} />

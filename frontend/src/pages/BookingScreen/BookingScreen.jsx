@@ -76,7 +76,7 @@ const BookingScreen = () => {
             <div className="col-md-6">
               <h1>{room?.name}</h1>
               {room?.imagesUrls?.length && (
-                <img src={room.imagesUrls[0]} alt="test" className="bigimg" />
+                <img src={room?.imagesUrls?.length && room?.imagesUrls[0]} alt="test" className="bigimg" />
               )}
             </div>
 
