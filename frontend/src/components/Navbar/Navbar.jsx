@@ -13,7 +13,10 @@ const Navbar = () => {
   return (
     <div className="nav-stick">
       <nav className="navbar navbar-expand-lg">
-        <NavLink className="navbar-brand" to="/home">
+        <NavLink
+          className="navbar-brand"
+          to={user?.userDetails?.isAdmin ? null : "/home"}
+        >
           <Logo />
         </NavLink>
         {user?.userDetails?.isAdmin && (

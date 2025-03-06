@@ -22,7 +22,6 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<ProfileScreen />} />
-          <Route path="/admin" element={<AdminNavbar />} />
           {JSON.parse(localStorage.getItem("userDetails"))?.userDetails
             ?.isAdmin && <Route path="/admin" element={<AdminNavbar />} />}
         </Routes>
